@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Labs_Cinemas.Genres>
+
+@{
+    ViewData["Title"] = "Genres";
+}
+
+<h1>Genres</h1>
+
+<p>
+    <a asp-action="Create">Create New Genre</a>
+</p>
+<div>
+    <h3>Оберіть exel-файл для заватаження</h3>
+    @using (Html.BeginForm("Import", "Genres", FormMethod.Post, new { enctype = "multipart/form-data", id = "frm-excel" })) {
+        <div>
+            Завантажте Excel-файл:
+            <input type="file" name="fileExcel" id="fileExcel" />
+            <div>
+                <input type="submit" value="Завантажити" />
+            </div>
+        </div>
+    }
+    <p style="color:brown">
+        @ViewBag.ErrorMessage
+    </p>
+</div>
+<div>
+    <h3>Завантаження данних в файл</h3>
+    <a asp-action="Export">Завантажити</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Names)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WhoCreate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Names)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WhoCreate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Films</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="container">
+    <div id="chart2"></div>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            $.get('/api/Default1/JsonData', function (jsonData) {
+                var data = google.visualization.arrayToDataTable(jsonData, false);
+                var option = {
+                    tittle: "Співвідношення кількості жанрів та фільмів",
+                    width: 400,
+                    height: 300
+                };
+                chart = new google.visualization.ColumnChart(document.getElementById('chart2'));
+                chart.draw(data, option);
+            })
+        }
+    </script>
+}
