@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Labs_Cinemas;
+using Labs_Cinemas.Models;
 
 namespace Labs_Cinemas.Controllers
 {
     public class HallsController : Controller
     {
-        private readonly DBPostilniak_LABSContext _context;
+        private readonly IdentityContext _context;
 
-        public HallsController(DBPostilniak_LABSContext context)
+        public HallsController(IdentityContext context)
         {
             _context = context;
         }

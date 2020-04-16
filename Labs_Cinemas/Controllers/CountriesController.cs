@@ -5,15 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Labs_Cinemas;
+using Labs_Cinemas.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Labs_Cinemas.Controllers
 {
+    [Authorize(Roles = "admin, user")]
     public class CountriesController : Controller
     {
-        private readonly DBPostilniak_LABSContext _context;
+        private readonly IdentityContext _context;
 
-        public CountriesController(DBPostilniak_LABSContext context)
+        public CountriesController(IdentityContext context)
         {
             _context = context;
         }

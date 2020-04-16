@@ -9,16 +9,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using ClosedXML.Excel;
-using Labs_Cinemas;
+using Labs_Cinemas.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Labs_Cinemas.Controllers
 {
+    [Authorize(Roles="admin, user")]
     public class CinemasController : Controller
     {
-        private readonly DBPostilniak_LABSContext _context;
+        private readonly IdentityContext _context;
 
-        public CinemasController(DBPostilniak_LABSContext context) {
+        public CinemasController(IdentityContext context) {
             _context = context;
         }
         [HttpPost]
