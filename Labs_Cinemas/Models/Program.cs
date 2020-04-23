@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Labs_Cinemas.Models;
 
 namespace Labs_Cinemas
 {
@@ -20,12 +21,11 @@ namespace Labs_Cinemas
             using (var scope = host.Services.CreateScope()) {
                 var services = scope.ServiceProvider;
                 try {
+                    var userManager = services.GetRequiredService<UserManager<User>>();
+                    var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    await RoleInitializer.InitializeAsync(userManager, rolesManager);
                     var context = services.GetRequiredService<IdentityContext>();
-                   // var userManager = services.GetRequiredService<UserManager<User>>();
-                   // var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                   // await RoleInitializer.InitializeAsync(userManager, rolesManager);
-                    //var context = services.GetRequiredService<HotlineContext>();
-                    context.Database.EnsureCreated();
+
 
                 } catch (Exception ex) {
                     var logger = services.GetRequiredService<ILogger<Program>>();

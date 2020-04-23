@@ -21,7 +21,7 @@ namespace Labs_Cinemas.Models
         public DbSet<Genres> Genres { get; set; }
         public DbSet<Halls> Halls { get; set; }
         public DbSet<Staffs> Staffs { get; set; }
-        //public new DbSet<User> Users { get; set; }
+        public new DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Cinemas>().ToTable("Cinemas");

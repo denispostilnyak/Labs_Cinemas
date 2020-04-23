@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Labs_Cinemas.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Labs_Cinemas.Controllers
@@ -12,8 +13,8 @@ namespace Labs_Cinemas.Controllers
     [ApiController]
     public class DefaultController : ControllerBase
     {
-        private readonly DBPostilniak_LABSContext _context;
-        public DefaultController(DBPostilniak_LABSContext context) {
+        private readonly IdentityContext _context;
+        public DefaultController(IdentityContext context) {
             _context = context;
         }
         [HttpGet("JsonData")]

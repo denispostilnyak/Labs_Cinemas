@@ -25,9 +25,11 @@ namespace Labs_Cinemas
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            // string connection = Configuration.GetConnectionString("DefaultConnection");
-            // services.AddDbContext<DBPostilniak_LABSContext>(options => options.UseSqlServer(connection));
-            // services.AddControllersWithViews();
+            //services.AddTransient<IUserValidator<User>, CustomUserValidator>();
+
+            services.AddTransient<IPasswordValidator<User>,
+           CustomPasswordValidator>(serv => new CustomPasswordValidator(6));
+
             services.Configure<CookiePolicyOptions>(options => {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
@@ -36,7 +38,11 @@ namespace Labs_Cinemas
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionIdentity));
             services.AddControllersWithViews();
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(opts => {
+                opts.User.RequireUniqueEmail = true;    // уникальный email
+                opts.User.AllowedUserNameCharacters = ".@abcdefghijklmnopqrstuvwxyz"; // допустимые символы
+            })
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<IdentityContext>();
 
         }

@@ -8,7 +8,7 @@ namespace Labs_Cinemas
     {
         public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager) {
             string adminEmail = "admin@gmail.com";
-            string password = "denis2000";
+            string password = "Denis2000den!";
             if (await roleManager.FindByNameAsync("admin") == null) {
                 await roleManager.CreateAsync(new IdentityRole("admin"));
             }

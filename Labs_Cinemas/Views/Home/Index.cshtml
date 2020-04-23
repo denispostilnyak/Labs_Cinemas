@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Security.Claims;
+@{
     ViewData["Title"] = "Лабораторна робота з ІСтаТП 2020. Кінотеатр";
 }
 <ul class="nav justify-content-center">
@@ -7,33 +8,36 @@
     </li>
 </ul>
 
-    <ul class="nav justify-content-end">
-        @if (User.Identity.IsAuthenticated) {
-            <li class="nav-link disabled">@User.Identity.Name</li>
+<ul class="navbar-nav mr-auto">
+    @if (User.Identity.IsAuthenticated) {
+        var roles = ((ClaimsIdentity)User.Identity).Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
 
-            <li class="navbar-text">
-                <form method="post" asp-controller="Account" asp-action="Logout">
-                    <input type="submit" value="Logout" />
-                </form>
-            </li>
-
-        } else {
+        if (roles.Contains("admin")) {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Sign In</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Roles" asp-action="Index">Roles</a>
             </li>
         }
-    </ul>
-    <!--@if (User.Identity.IsAuthenticated) {
-        <p>@User.Identity.Name</p>
+    }
+</ul>
+<ul class="nav justify-content-end">
 
-        <form method="post" asp-controller="Account" asp-action="Logout">
-            <input type="submit" value="Logout" />
-        </form>
+    @if (User.Identity.IsAuthenticated) {
+        <li class="nav-link disabled">@User.Identity.Name</li>
+
+        <li class="navbar-text">
+            <form method="post" asp-controller="Account" asp-action="Logout">
+                <input type="submit" value="Logout" />
+            </form>
+        </li>
+
     } else {
-         <a asp-controller="Account" asp-action="Login">Sign in</a>
-         <a asp-controller="Account" asp-action="Register">Sign up</a>
-        }-->
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Sign In</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a>
+        </li>
+    }
+</ul>
+
 
