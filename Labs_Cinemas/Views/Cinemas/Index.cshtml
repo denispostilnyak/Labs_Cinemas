@@ -19,7 +19,7 @@
                 <input type="submit" value="Завантажити" />
             </div>
         </div>
-    } 
+    }
     <p style="color:brown">
         @ViewBag.ErrorMessage
     </p>
@@ -50,28 +50,28 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Adress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contact)
-            </td>
-            <td>
-                <a asp-action="Buffets" asp-route-id="@item.Id">Buffets</a> |
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Halls</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact)
+                </td>
+                <td>
+                    <a asp-action="Buffets" asp-route-id="@item.Id">Buffets</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Halls</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <form asp-controller="Cinemas" asp-action="Index">
@@ -85,24 +85,26 @@
     <div id="chart1"></div>
 </div>
 
-@section scripts{ 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+@section scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-<script>
-   google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
 
-    function drawChart() {
-        $.get('/api/Default/JsonData', function (jsonData) {
-           var data = google.visualization.arrayToDataTable(jsonData, false);
-            var option = {
-                tittle: "Співвідношення кількості залів та кінотеатрів",
-                width: 400,
-                height: 300
-            };
-            chart = new google.visualization.PieChart(document.getElementById('chart1'));
-            chart.draw(data, option);
-        })
-    }
-</script>
+        function drawChart() {
+            $.get('/api/Default/JsonData', function (jsonData) {
+                var data = google.visualization.arrayToDataTable(jsonData, false);
+                var option = {
+                    tittle: "Співвідношення кількості залів та кінотеатрів",
+                    width: 400,
+                    height: 300
+                };
+                chart = new google.visualization.PieChart(document.getElementById('chart1'));
+                chart.draw(data, option);
+            })
+        }
+    </script>
 }
+<a asp-controller="Home" asp-action="Index" class="btn btn-info">Back to Menu</a>
+

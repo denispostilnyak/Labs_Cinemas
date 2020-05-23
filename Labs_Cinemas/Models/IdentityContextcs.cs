@@ -22,6 +22,7 @@ namespace Labs_Cinemas.Models
         public DbSet<Halls> Halls { get; set; }
         public DbSet<Staffs> Staffs { get; set; }
         public new DbSet<User> Users { get; set; }
+        public DbSet<Requests> Requests { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Cinemas>().ToTable("Cinemas");
@@ -31,6 +32,7 @@ namespace Labs_Cinemas.Models
             modelBuilder.Entity<Genres>().ToTable("Genres");
             modelBuilder.Entity<Halls>().ToTable("Halls");
             modelBuilder.Entity<Staffs>().ToTable("Staffs");
+            modelBuilder.Entity<Requests>().ToTable("Requests");
             //modelBuilder.Entity<User>().ToTable("User");
         }
         public static ApplicationDbContext Create() {

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Labs_Cinemas.Models.Requests>
+
+@{
+    ViewData["Title"] = "Requests";
+}
+<h1>Requests</h1>
+<p>
+    <a asp-action="Create">Create New Request</a>
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Info)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Settings" asp-route-id="@item.Id">Settings</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Home" asp-action="Index" class="btn btn-info">Back to Menu</a>
+
+
+
